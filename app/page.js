@@ -66,7 +66,6 @@ function Bubbles() {
     </BubbleBackground>
   );
 }
-
 export default function Home() {
   const [messages, setMessages] = useState([{
     role: 'assistant',
@@ -113,12 +112,110 @@ export default function Home() {
     })
   }
 
+
+// return (
+//   <>
+//     <Bubbles />
+//     <Box
+//       width="100vw"
+//       height="100vh"
+//       display="flex"
+//       flexDirection="column"
+//       justifyContent="center"
+//       alignItems="center"
+//     >
+//       <Stack
+//         direction="column"
+//         width="650px"
+//         height="700px"
+//         border="5px solid lightblue"
+//         p={2}
+//         spacing={2}
+//         bgcolor="rgba(255, 255, 255, 0.1)"
+//         borderRadius={4}
+//       >
+//         <Stack
+//           direction="column"
+//           spacing={2}
+//           flexGrow={1}
+//           overflow="auto"
+//           maxHeight="calc(100% - 70px)" // Adjust for the input field height
+//         >
+//           {messages.map((message, index) => (
+//             <Box
+//               key={index}
+//               display="flex"
+//               justifyContent={
+//                 message.role === "assistant" ? 'flex-start' : 'flex-end'
+//               }
+//             >
+//               <Box bgcolor={
+//                 message.role === 'assistant' ? 'primary.main' : 'secondary.main'
+//               }
+//                 color="white"
+//                 borderRadius={16}
+//                 p={3}
+//                 sx={{
+//                   transition: 'background-color 0.3s ease',
+//                   boxShadow: 3,
+//                   '&:hover': {
+//                     backgroundColor: message.role === 'assistant' ? 'primary.dark' : 'secondary.dark',
+//                     boxShadow: 6,
+//                   }
+//                 }}
+//               >
+//                 {message.content}
+//               </Box>
+//             </Box>
+//           ))}
+//         </Stack>
+//         <Box 
+//           position="relative" 
+//           sx={{ 
+//             border: '2px solid lightblue',
+//             borderRadius: '4px',
+//             overflow: 'hidden'
+//           }}
+//         >
+//           <TextField
+//             label="Message"
+//             fullWidth
+//             value={message}
+//             onChange={(e) => setMessage(e.target.value)}
+//             variant="outlined"
+//             sx={{
+//               '& .MuiOutlinedInput-root': {
+//                 paddingRight: '48px', // Make room for the send button
+//                 '& fieldset': {
+//                   border: 'none', // Remove the default TextField border
+//                 },
+//               },
+//             }}
+//           />
+//           <IconButton 
+//             onClick={sendMessage}
+//             sx={{
+//               position: 'absolute',
+//               right: '8px',
+//               top: '50%',
+//               transform: 'translateY(-50%)',
+//             }}
+//           >
+//             <ArrowUpwardIcon />
+//           </IconButton>
+//         </Box>
+//       </Stack>
+//     </Box>
+//   </>
+// )
+// }
+
 return (
   <>
     <Bubbles />
     <Box
       width="100vw"
-      height="98vh"
+      height="100vh"
       display="flex"
       flexDirection="column"
       justifyContent="center"
@@ -128,7 +225,7 @@ return (
         direction="column"
         width="650px"
         height="700px"
-        border="3px solid lightblue"
+        border="5px solid lightblue"
         p={2}
         spacing={2}
         bgcolor="rgba(255, 255, 255, 0.1)"
@@ -150,16 +247,16 @@ return (
               }
             >
               <Box bgcolor={
-                message.role === 'assistant' ? 'primary.main' : 'secondary.main'
+                message.role === 'assistant' ? 'primary.main' : '#F5F5F5' // Off-white color for user messages
               }
-                color="white"
+                color={message.role === 'assistant' ? 'white' : 'black'} // Black text for user messages
                 borderRadius={16}
                 p={3}
                 sx={{
                   transition: 'background-color 0.3s ease',
                   boxShadow: 3,
                   '&:hover': {
-                    backgroundColor: message.role === 'assistant' ? 'primary.dark' : 'secondary.dark',
+                    backgroundColor: message.role === 'assistant' ? 'primary.dark' : '#E0E0E0', // Darker off-white on hover
                     boxShadow: 6,
                   }
                 }}
@@ -169,7 +266,14 @@ return (
             </Box>
           ))}
         </Stack>
-        <Box position="relative">
+        <Box 
+          position="relative" 
+          sx={{ 
+            border: '2px solid lightblue',
+            borderRadius: '4px',
+            overflow: 'hidden'
+          }}
+        >
           <TextField
             label="Message"
             fullWidth
@@ -179,6 +283,31 @@ return (
             sx={{
               '& .MuiOutlinedInput-root': {
                 paddingRight: '48px', // Make room for the send button
+                '& fieldset': {
+                  border: 'none', // Remove the default TextField border
+                },
+                '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                  border: 'none', // Remove the focus border
+                },
+              },
+              '& .MuiInputLabel-outlined': {
+                '&.Mui-focused': {
+                  color: 'lightblue', // Change label color when focused
+                },
+              },
+              '& .MuiInputBase-input': {
+                position: 'relative',
+                zIndex: 1, // Ensure the text is above the background
+              },
+              '&::before': {
+                content: '""',
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                right: 0,
+                bottom: 0,
+                backgroundColor: 'Antiquewhite',
+                zIndex: 0,
               },
             }}
           />
@@ -189,8 +318,10 @@ return (
               right: '8px',
               top: '50%',
               transform: 'translateY(-50%)',
+              zIndex: 2, // Ensure the button is above the text
             }}
           >
+            <ArrowUpwardIcon />
           </IconButton>
         </Box>
       </Stack>
