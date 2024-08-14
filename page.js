@@ -149,10 +149,10 @@ export default function Home() {
 
 return (
   <>
-    <Bubbles />
+    <Bubbles/>
     <Box
-      width="100vw"
-      height="100vh"
+      width="100%"
+      height="100%"
       display="flex"
       flexDirection="column"
       justifyContent="center"
@@ -161,7 +161,7 @@ return (
       <Stack
         direction="column"
         width="500px"
-        height="530px"
+        height="580px"
         border="5px solid lightblue"
         boxShadow="0 4px 6px rgba(0, 0, 0, 0.1)"
         p={2}
@@ -184,7 +184,7 @@ return (
           spacing={2}
           flexGrow={1}
           overflow="auto"
-          maxHeight="calc(100% - 70px)" // Adjust for the input field height
+          maxHeight="calc(100% - 30px)" // Adjust for the input field height
 
           p={2}
           sx={{
