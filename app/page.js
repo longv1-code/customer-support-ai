@@ -84,11 +84,18 @@ const Navbar = styled.div`
 export default function Home() {
   const [messages, setMessages] = useState([{
     role: 'assistant',
-    content: `Hi! I'm the Headstarter Support Agent, how can I assist you today?`
+    content: `Hello! I am SwiftSupport, an AI-Powered Amazon Customer Service. How may I assist you today?`
   }])
 
   const [message, setMessage] = useState('')
   const messageContainerRef = useRef(null);
+
+  const enterKeyDown = (e) => {
+    if (e.key === "Enter") {
+      console.log("Enter button has been pressed.")
+      sendMessage()
+    }
+  }
 
   const scrollToBottom = () => {
     if (messageContainerRef.current) {
@@ -142,10 +149,10 @@ export default function Home() {
 
 return (
   <>
-    <Bubbles />
+    <Bubbles/>
     <Box
-      width="100vw"
-      height="100vh"
+      width="100%"
+      height="100%"
       display="flex"
       flexDirection="column"
       justifyContent="center"
@@ -154,7 +161,7 @@ return (
       <Stack
         direction="column"
         width="500px"
-        height="530px"
+        height="580px"
         border="5px solid lightblue"
         boxShadow="0 4px 6px rgba(0, 0, 0, 0.1)"
         p={2}
@@ -162,7 +169,7 @@ return (
         bgcolor="rgba(255, 255, 255, 0.1)"
         borderRadius={4}
       >
-      <Navbar>Product Q&A Bot</Navbar>
+      <Navbar>SwiftSupport</Navbar>
       <Stack
             direction="column"
             height="calc(100% - 120px)" // Adjust this value based on your Navbar and input field heights
@@ -177,7 +184,7 @@ return (
           spacing={2}
           flexGrow={1}
           overflow="auto"
-          maxHeight="calc(100% - 70px)" // Adjust for the input field height
+          maxHeight="calc(100% - 30px)" // Adjust for the input field height
 
           p={2}
           sx={{
@@ -239,6 +246,7 @@ return (
             fullWidth
             value={message}
             onChange={(e) => setMessage(e.target.value)}
+            onKeyDown={enterKeyDown}
             variant="outlined"
             sx={{
               '& .MuiOutlinedInput-root': {
@@ -272,6 +280,7 @@ return (
             }}
           />
           <IconButton 
+            id="send"
             onClick={sendMessage}
             sx={{
               position: 'absolute',
